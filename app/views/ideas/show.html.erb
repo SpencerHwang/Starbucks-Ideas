@@ -1,0 +1,36 @@
+<p class="notice"><%= notice %></p>
+
+<p>
+  <h2><%= @idea.title %></h2>
+</p>
+
+<p>
+  <b>By: <%= @idea.user.email %></b> <%= time_ago_in_words @idea.created_at %> ago
+  <br/><br/>
+  <%= @idea.body %>
+</p>
+
+<% if user_signed_in? && current_user.id == @idea.user_id %>
+  <%= link_to 'Edit', edit_idea_path(@idea) %> 
+<% end %>
+
+<br/>
+<h2>Comments:</h2>
+
+<div id="comments">
+<% @idea.comments.each do |comment| %>
+  <%= render :partial=>'comments/comment', :object=>comment %>
+<% end %>
+</div>
+
+<% if user_signed_in? %>
+  Add Comment?
+  <%= form_for [@idea, Comment.new] do |f| %>
+    <%= f.text_area :body, :size => "60x5" %>
+    <br/>
+    <%= f.submit %>
+  <% end %>
+<% end %>
+
+<br/>
+<%= link_to 'Back', ideas_path %>

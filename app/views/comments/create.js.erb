@@ -1,0 +1,7 @@
+$('#comments').append("<%= escape_javascript ( render(:partial=>'comment', :object=> @c, :as => :comment) ) %>");
+$("#comment_<%=@c.id%>").hide().fadeIn("slow");
+$('#new_comment')[0].reset();
+$('form.button_to').bind('submit', function() {
+  $.post($(this).attr('action'), $(this).serialize(), null, 'script');
+  return false;
+});

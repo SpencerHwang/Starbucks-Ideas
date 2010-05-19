@@ -1,0 +1,8 @@
+<div id="comment_<%=comment.id%>">
+<li><i>By <%= comment.user.email %></i> <%= time_ago_in_words comment.created_at %> ago<br/>
+    <%= comment.body%>
+    <% if user_signed_in? && current_user.id == comment.user_id %>
+     <%= button_to "Delete", [@idea, comment],  :method=>:delete %> </li>
+    <% end %>
+</div>
+ 

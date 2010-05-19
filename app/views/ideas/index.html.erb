@@ -1,0 +1,26 @@
+<h1>Starbucks Ideas - Spencer's Rails App with AJAX</h1>
+
+  <% if user_signed_in? %>
+    <%= link_to 'Submit New Idea', new_idea_path %>
+  <% end %>
+<% @ideas.each do |idea| %>
+    <h2><%= link_to "#{idea.title}", idea %></h2>
+    <p>
+      <b>By : <%= idea.user.email %></b> <%= time_ago_in_words idea.created_at%> ago
+      <br/><br/>
+      <%= idea.body %>
+    </p>
+    <p>Comments: <%= idea.comments.count %> </p>
+
+  <% if user_signed_in? && current_user.id == idea.user_id %>
+    <i>Since you're the auther, you can </i>
+    <%= link_to 'Edit', edit_idea_path(idea) %>
+    <%= link_to 'Destroy', idea, :confirm => 'Are you sure?', :method => :delete %>
+  <% end %>
+<% end %>
+
+<br />
+<br />
+  <% if user_signed_in? %>
+    <%= link_to 'Submit New Idea', new_idea_path %>
+  <% end %>
